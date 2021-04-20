@@ -7,6 +7,9 @@ license = "MIT"
 
 [tool.poetry.dependencies]
 python = "^3.8"
+schedule = "^1.1.0"
+requests = "^2.25.1"
+pulsar-client = "^2.7.1"
 
 [tool.poetry.dev-dependencies]
 pre-commit = "^2.12.1"

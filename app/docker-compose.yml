@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  my_pythia_messenger:
+    build:
+      context: ../messenger
+    container_name: my_pythia_messenger
+    restart: on-failure
+    ports:
+      - 6650:6650
+      - 8080:8080
+    volumes:
+      - my_pythia_pulsar_conf:/pulsar/conf
+      - my_pythia_pulsar_data:/pulsar/data
+#  my_pythia_scheduler:
+#    build:
+#      context: ../scheduler
+#    container_name: my_pythia_scheduler
+#    restart: on-failure
+#    volumes:
+#      - type: bind
+#        source: ./config.ini
+#        target: /src/config.ini
+#      - type: bind
+#        source: ./settings.json
+#        target: /src/settings.json
+#  my_pythia_extractor:
+#    build:
+#      context: ../extractor
+#    container_name: my_pythia_extractor
+#    restart: on-failure
+#    environment:
+#      - MONGO_USER=${MONGO_USER}
+#      - MONGO_PASS=${MONGO_PASS}
+#      - TINKOFF_TOKEN=${TINKOFF_TOKEN}
+#    volumes:
+#      - type: bind
+#        source: ./config.ini
+#        target: /src/config.ini
+#    depends_on:
+#      - my_pythia_messenger
+  my_pythia_db:
+    build:
+      context: ../db
+    container_name: my_pythia_db
+    restart: on-failure
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
+    ports:
+      - 27017:27017
+    volumes:
+      - ./.my_pythia/db:/data/db
+
+volumes:
+  my_pythia_pulsar_conf:
+  my_pythia_pulsar_data:

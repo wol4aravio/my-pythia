@@ -2,6 +2,7 @@
 
 .env
 settings.json
+.my_pythia
 
 */.my_pythia
 */__pycache__

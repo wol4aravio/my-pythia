@@ -27,21 +27,23 @@ services:
       - type: bind
         source: ./settings.json
         target: /src/settings.json
-#  my_pythia_extractor:
-#    build:
-#      context: ../extractor
-#    container_name: my_pythia_extractor
-#    restart: on-failure
-#    environment:
-#      - MONGO_USER=${MONGO_USER}
-#      - MONGO_PASS=${MONGO_PASS}
-#      - TINKOFF_TOKEN=${TINKOFF_TOKEN}
-#    volumes:
-#      - type: bind
-#        source: ./config.ini
-#        target: /src/config.ini
-#    depends_on:
-#      - my_pythia_messenger
+  my_pythia_extractor:
+    build:
+      context: .
+      dockerfile: dockerfiles/mypythia.Dockerfile
+    container_name: my_pythia_extractor
+    restart: on-failure
+    command: python -u mypythia/extractor/main.py
+    environment:
+      - MONGO_USER=${MONGO_USER}
+      - MONGO_PASS=${MONGO_PASS}
+      - TINKOFF_TOKEN=${TINKOFF_TOKEN}
+    volumes:
+      - type: bind
+        source: ./config.ini
+        target: /src/config.ini
+    depends_on:
+      - my_pythia_messenger
   my_pythia_db:
     build:
       context: .

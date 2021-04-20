@@ -1,6 +1,7 @@
 .idea
 
-*/.env
+.env
+settings.json
+
 */.my_pythia
 */__pycache__
-app/settings.json

@@ -3,7 +3,8 @@ version: "3.9"
 services:
   my_pythia_messenger:
     build:
-      context: ../messenger
+      context: dockerfiles
+      dockerfile: messenger.Dockerfile
     container_name: my_pythia_messenger
     restart: on-failure
     ports:
@@ -41,7 +42,8 @@ services:
 #      - my_pythia_messenger
   my_pythia_db:
     build:
-      context: ../db
+      context: dockerfiles
+      dockerfile: db.Dockerfile
     container_name: my_pythia_db
     restart: on-failure
     environment:

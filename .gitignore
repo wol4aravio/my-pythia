@@ -3,3 +3,4 @@
 */.env
 */.my_pythia
 */__pycache__
+app/settings.json

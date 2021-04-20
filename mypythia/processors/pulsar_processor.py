@@ -16,7 +16,7 @@ class PulsarProcessor(AbstractProcessor):
             url_ = url
         self._pulsar_client = pulsar.Client(url_)
 
-    def __enter__(self, url=None):
+    def __enter__(self):
         return self
 
     def __exit__(self, _, __, ___):
@@ -25,11 +25,11 @@ class PulsarProcessor(AbstractProcessor):
     def close(self):
         self._pulsar_client.close()
 
-    def send(self, message: str, topic: str, *args, **kwargs):
+    def send(self, message: str, topic: str, *_, **__):
         producer = self._pulsar_client.create_producer(topic)
         producer.send(message.encode("utf-8"))
 
-    def subscribe(self, topic, *args, **kwargs):
+    def subscribe(self, topic, *_, **kwargs):
         consumer = self._pulsar_client.subscribe(
             topic, subscription_name=kwargs.get("name", str(uuid4()))
         )
